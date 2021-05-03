@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 import 'PendingOrders.dart';
-import 'ViewOrders.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
