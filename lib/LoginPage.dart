@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
 import 'ViewOrders.dart';
 
 class LoginPage extends StatelessWidget {
@@ -37,7 +35,7 @@ class LoginPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PendingOrders()),
+                  MaterialPageRoute(builder: (context) => ViewOrders()),
               );
             },
           ),
