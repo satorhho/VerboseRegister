@@ -8,7 +8,8 @@ class LoginPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 100, bottom: 10, left: 30, right: 30),
+            margin: const EdgeInsets.only(top: 300),
+            alignment: Alignment.center,
             child: Text(
               "Verbose Groceries",
               style: TextStyle(
@@ -20,7 +21,8 @@ class LoginPage extends StatelessWidget {
           ),
 
           Container(
-            margin: const EdgeInsets.only(left: 30, bottom: 80, right: 30),
+            margin: const EdgeInsets.only(top: 20),
+          alignment: Alignment.center,
             child: Text(
               "Register User Application",
               style: TextStyle(
@@ -29,16 +31,20 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          OutlineButton(
-            child: Text("SUBMIT"),
-            highlightColor: Colors.white38,
-            onPressed: () {
-              Navigator.push(
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: OutlineButton(
+              child: Text("START"),
+              highlightColor: Colors.white38,
+              onPressed: () {
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ViewOrders()),
-              );
-            },
+                );
+              },
+            ),
           ),
+
         ],
       ),
     );
