@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'OrderListContent.dart';
 
 class PendingOrders extends StatelessWidget {
   get fontSize => null;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: [
+        body:
+          Column(children: [
+
             Container(
             margin: const EdgeInsets.only(top: 100),
             alignment: Alignment.center,
@@ -39,6 +41,28 @@ class PendingOrders extends StatelessWidget {
             runSpacing: 0, // to apply margin in the cross axis of the wrap
 
             children: <Widget>[
+              OutlineButton(
+                child: Text("201810281"),
+                highlightColor: Colors.white38,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OrderListContent()),
+                  );
+                },
+              ),
+              Text('Pending', style: TextStyle(fontSize: 18,)),
+              OutlineButton(
+                child: Text("201810281"),
+                highlightColor: Colors.white38,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OrderListContent()),
+                  );
+                },
+              ),
+              Text('Pending', style: TextStyle(fontSize: 18,)),
               OutlineButton(
                 child: Text("201810281"),
                 highlightColor: Colors.white38,

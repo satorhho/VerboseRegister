@@ -68,6 +68,10 @@
         "source": "/home/gianmari/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/layout/notification_action.xml"
     },
     {
+        "merged": "/home/gianmari/Desktop/VerboseRegister/build/app/intermediates/res/merged/debug/drawable-v21_launch_background.xml.flat",
+        "source": "/home/gianmari/Desktop/VerboseRegister/android/app/src/main/res/drawable-v21/launch_background.xml"
+    },
+    {
         "merged": "/home/gianmari/Desktop/VerboseRegister/build/app/intermediates/res/merged/debug/layout_notification_template_icon_group.xml.flat",
         "source": "/home/gianmari/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/layout/notification_template_icon_group.xml"
     },
