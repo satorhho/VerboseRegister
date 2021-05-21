@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
+import 'package:verbose_register/LoginPage.dart';
 
 void main() => runApp(MyApp());
 

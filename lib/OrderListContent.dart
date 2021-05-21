@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'Confirmation.dart';
 
-import 'OrderListContent.dart';
+
+
+
 
 class OrderListContent extends StatelessWidget {
+  final databaseReference = FirebaseDatabase.instance.reference();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +60,8 @@ class OrderListContent extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,MaterialPageRoute(builder: (context) => confirmation()),
-
                 );
+                updateData();
               },
             ),
           )
@@ -65,5 +69,10 @@ class OrderListContent extends StatelessWidget {
     ],
    )
   );
+  }
+  void updateData(){
+    databaseReference.child('Order').update({
+      'status': 'confirmed'
+    });
   }
 }
