@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:verbose_register/OrderListContent.dart';
 import 'LoginPage.dart';
 import 'package:verbose_register/LoginPage.dart';
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Verbose User',
       theme: ThemeData.dark(),
       home: LoginPage(),
+      //home: OrderListContent(),
       //home: CreateOrder(),
       //home: Orders(),
     );

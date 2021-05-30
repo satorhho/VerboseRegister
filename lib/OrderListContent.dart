@@ -9,30 +9,21 @@ import 'Confirmation.dart';
 
 
 class OrderListContent extends StatelessWidget {
-
-
- List<dynamic> order_ids;
- List<dynamic> stock_ids;
- List<dynamic> stock_names;
- List<dynamic> stock_description;
-
-
-
- OrderListContent(List<String> oid,List<String> sid_list,List<String> s_names,List<String> s_desc){
-   this.order_ids = oid;
-   this.stock_ids = sid_list;
-   this.stock_names = s_names;
-   this.stock_description = s_desc;
-
-   print(order_ids);
-   print(stock_ids);
-   print(stock_names);
-   print(stock_description);
- }
- 
  final databaseReference = FirebaseDatabase.instance.reference();
- @override
+ String order_id;
+ String stock_name;
+ String description;
 
+ String order_num;
+
+ OrderListContent(String order_id, String stock_name, String description, String order_num){
+   this.order_id = order_id;
+   this.stock_name = stock_name;
+   this.description = description;
+   this.order_num = order_num;
+ }
+
+ @override
  Widget build(BuildContext context) {
    return Scaffold(
        body: Column(
@@ -41,7 +32,7 @@ class OrderListContent extends StatelessWidget {
              margin: const EdgeInsets.only(top: 50, bottom: 50),
              alignment: Alignment.center,
              child:  Text(
-               '${this.order_ids}',
+               this.order_id,
                style: TextStyle(
                  fontSize: 35,
                  fontWeight: FontWeight.bold,
@@ -52,64 +43,52 @@ class OrderListContent extends StatelessWidget {
            Row(
              children: [
                Container(
-                 margin: const EdgeInsets.only(left: 75),
-                 child: Text("Stock Name"),
+                 margin: const EdgeInsets.only(left: 70),
+                 child: Text(
+                   this.stock_name,
+                   style: TextStyle(
+                       fontSize: 20
+                   ),
+                 ),
                ),
                Container(
-                 margin: const EdgeInsets.only(left: 145, right: 50),
-                 child: Text("Description"),
+                 margin: const EdgeInsets.only(left: 75),
+                 child: Text(
+                   "Description",
+                   style: TextStyle(
+                       fontSize: 20
+                   ),
+                 ),
                ),
              ],
            ),
 
-           Expanded(
-               child: Row(
-                 children: [
-                   // FOR ORDER ID
-                   Expanded(
-                     child: ListView.builder(
-                       itemCount: this.stock_ids.length,
-                       itemBuilder: (BuildContext context, int index) {
-                         checkdata(this.stock_ids);
-                         return Container(
-                           height: 50,
-                           child: Center(child: Text('${this.stock_names[index]}')),
-                         );
-                       },
-                     ),
-                   ),
-
-                   //FOR STATUS
-
-                   Expanded(
-                     child: ListView.builder(
-                       itemCount: this.stock_description.length,
-                       itemBuilder: (BuildContext context, int index) {
-                         return Container(
-                           height: 50,
-                           child: Center(child: Text('${this.stock_description[index]}')),
-                         );
-                       },
-                     ),
-                   ),
-
-                 ],
-               )
+           Row(
+             children: [
+               Container(
+                 margin: const EdgeInsets.only(left: 75),
+                 child: Text(this.stock_name),
+               ),
+               Container(
+                 margin: const EdgeInsets.only(left: 120),
+                 child: Text(this.description),
+               ),
+             ],
            ),
 
           Container(
             width: 200,
             height: 50,
-            margin: const EdgeInsets.only(top: 400),
+            margin: const EdgeInsets.only(top: 100),
             child:
             OutlineButton(
               child: Text("APPROVE ORDER"),
               highlightColor: Colors.white38,
               onPressed: () {
                 Navigator.push(
-                  context,MaterialPageRoute(builder: (context) => confirmation()),
+                  context,MaterialPageRoute(builder: (context) => Confirmation(this.order_num)),
                 );
-                updateData(1);
+
                //updateData();
               },
             ),
@@ -118,18 +97,12 @@ class OrderListContent extends StatelessWidget {
    )
   );
   }
- void updateData(int counter) {
-   this.databaseReference.child("Order/order$counter").update({
-     "status": "confirmed"
-   });
- }
  void checkdata(List<dynamic> sid){
-   String index;
-   if(this.stock_ids == "SID3")
-     index = "3";
-   else if(this.stock_ids == "SID2")
-     index = "2";
-   else if(this.stock_ids == "SID1")
-     index = "1";
+   databaseReference.orderByChild("Stock").equalTo("SID3");
+ }
+ void readData(){
+   databaseReference.once().then((DataSnapshot snapshot) {
+     print('Data : ${snapshot.value}');
+   });
  }
 }

@@ -14,8 +14,8 @@ class PendingOrders extends StatelessWidget {
     this.order_ids = orderIds;
     this.statuses = statusList;
 
-    print(order_ids);
-    print(statuses);
+    // print(order_ids);
+    // print(statuses);
   }
 
   get fontSize => null;
@@ -61,38 +61,36 @@ class PendingOrders extends StatelessWidget {
                               child: Text('${this.order_ids[index]}'),
                               highlightColor: Colors.white38,
                               onPressed: () {
+                                var idx = this.order_ids.length - index; // for dbref.("Parent/child$idx")
+
+
                                 List<String> templist1 = [];
                                 List<dynamic> templistval1 = [];
-                                List<String> oid_list = [];
-                                List<String> sid_list = [];
-                                List<String> s_name = [];
-                                List<String> s_desc = [];
 
-                                var future1 = this.databaseReference.child("Stock")
-                                    .once()
-                                    .then((DataSnapshot snapshot) {
+                                var future1 = this.databaseReference.child("Order").once().then((DataSnapshot snapshot) {
                                   Map<dynamic, dynamic> value = snapshot.value;
                                   value.forEach((key, values) {
-                                    templist1.add(key);
-                                    templistval1.add(values);
+                                    templist1.add(key);           // order counters e.g. [order9, order8]
+                                    templistval1.add(values);     // map values e.g
 
                                   });
-
                                 });
 
+
+
                                 future1.then((value) {
-                                  templistval1.forEach((element) {
-                                    oid_list.add(element["order_id"]);
-                                    sid_list.add(element["stock_id"]);
-                                    s_name.add(element["name"]);
-                                    s_desc.add(element["description"]);
-                                  });
+                                  List<dynamic> rev_lst = new List.from(templist1.reversed);
+                                  List<dynamic> rev_val = new List.from(templistval1.reversed);
+                                  var store = rev_val[idx-1];
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) =>
-                                        OrderListContent(oid_list, sid_list,s_name,s_desc)),
+                                        OrderListContent(store["order_id"], store["stock_id"],store["status"], rev_lst[idx-1])
+                                    ),
                                   );
+
                                 });
+
                               },
                             ),
                           );
@@ -121,11 +119,11 @@ class PendingOrders extends StatelessWidget {
         )
     );
   }
-    void getData(){
-      databaseReference.once().then((DataSnapshot snapshot) {
-        print('${snapshot.value}');
-      });
-    }
+  void updateData(int counter) {
+    this.databaseReference.child("Order/order$counter").update({
+      "status": "Confirmed"
+    });
+  }
 
   void checkConfirmed(int index) {
     if (this.statuses[index] == "Confirmed") {
